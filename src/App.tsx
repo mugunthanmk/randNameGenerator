@@ -1,16 +1,17 @@
 import './App.css'
 import Address from './Components/Address';
+import DynTitleNLogo from './Components/DynTitleNLogo';
 import useRandNameApi from './hooks/useRandNameApi'
 
 function App() {
   const {data,refetch}=useRandNameApi();
-  console.log(data)
+
   if(!data){
     return <h3>Loading...</h3>
   }
 
   return (
-    <>
+    <DynTitleNLogo name={data?.name?.first} icon={data?.picture?.thumbnail}>
     <div className='img-container'>
     <div className='img-wrapper'>
       <img src={data.picture.large}/>
@@ -21,7 +22,7 @@ function App() {
     <h3>{data.email}</h3>
     <h4>Phone - {data.phone} | Cell - {data.cell}</h4>
     <button onClick={refetch}>Fetch New User</button>
-    </>
+    </DynTitleNLogo>
   )
 }
 
